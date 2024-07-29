@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+
 def read_sales_data(file_path):
     with open(file_path, 'r') as data:
         content = data.readlines()
@@ -52,7 +54,14 @@ sales_time = sales_over_time(sales_data)
 most_sales_product = max(sales_per_product)
 most_sales_date = max(sales_time)
 
-print(f'Самый продаваемый товар: {most_sales_product}')
+print(f'Наибольшую выручку принёс продукт: {most_sales_product}')
 print(f'Наибольшая сумма продаж была: {most_sales_date}')
 
+products = list(sales_per_product.keys())
+total_price = list(sales_per_product.values())
 
+plt.figure(figsize=(80, 10))
+plt.xlabel('Сумма продаж')
+plt.ylabel('Продукт')
+plt.plot(products, total_price)
+plt.show()
