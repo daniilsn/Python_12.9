@@ -1,27 +1,41 @@
-# def read_sales_data(file_path):
-#     data = open(file_path, 'r')
-#     content = data.readlines()
-#     keys = ['product_name', 'quantity', 'price', 'date']
-    
-#     dictionary = dict(zip(keys, content))
-#     return content[0]
-
-# path = input()
-# print(read_sales_data(path))
-
 def read_sales_data(file_path):
-    data = open(file_path, 'r')
-    content = data.readlines()
-    return content
+    with open(file_path, 'r') as data:
+        content = data.readlines()
+    data = []
+    keys = ['product_name', 'quantity', 'price', 'date'] 
+    for content in content:
+        if content.strip():
+            parts = content.strip().split(', ')
+            row = tuple(parts)
+            data.append(row)
+    result = dict(zip(keys, zip(*data)))
+    return result
 
-path = input()
-print(read_sales_data(path))
+#поменять Дата на СейлсДата
+def total_sales_per_product(data):
+    product_name = list(data['product_name'])
+    quantitys = list(map(int, data['quantity']))
+    prices = list(map(int, data['price']))
+    sales_summury = {}
+    for i in range(len(product_name)):
+        product = product_name[i]
+        quantity = quantitys[i]
+        price = prices[i]
+        total_sales = quantity * price       
+        if product in sales_summury:
+            sales_summury[product] += total_sales
+        else:
+            sales_summury[product] = total_sales       
+    return sales_summury
 
+def sales_over_time(sales_data):
+    date = sales_data
     
+path = input()
+sales_data = read_sales_data(path)
+sales_per_product = total_sales_per_product(sales_data)
+sales_time = sales_over_time(sales_data)
 
-
-
- 
-
+print(sales_time)
 
 
