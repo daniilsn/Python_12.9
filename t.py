@@ -29,8 +29,21 @@ def total_sales_per_product(data):
     return sales_summury
 
 def sales_over_time(sales_data):
-    date = sales_data
+    dates = list(sales_data['date'])
+    quantitys = list(map(int, sales_data['quantity']))
+    prices = list(map(int, sales_data['price']))
+    sales_summury = {}
     
+    for i in range (len(dates)):
+        date = dates[i]
+        quantity = quantitys[i]
+        price = prices[i]
+        total_sales = quantity * price
+        if date in sales_summury:
+            sales_summury[date] += total_sales
+        else:
+            sales_summury[date] = total_sales
+    return sales_summury    
 path = input()
 sales_data = read_sales_data(path)
 sales_per_product = total_sales_per_product(sales_data)
