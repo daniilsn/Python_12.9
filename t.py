@@ -49,6 +49,10 @@ sales_data = read_sales_data(path)
 sales_per_product = total_sales_per_product(sales_data)
 sales_time = sales_over_time(sales_data)
 
-print(sales_time)
+most_sales_product = max(sales_per_product)
+most_sales_date = max(sales_time)
+
+print(f'Самый продаваемый товар: {most_sales_product}')
+print(f'Наибольшая сумма продаж была: {most_sales_date}')
 
 
